@@ -1,0 +1,480 @@
+/* Basic Reset & Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Define color variables for easy customization */
+    --primary-color: #007bff; /* A vibrant blue for accents */
+    --secondary-color: #f8f9fa; /* Light gray for background alternation */
+    --dark-color: #343a40; /* Dark gray for headings and main text */
+    --text-color: #495057; /* Medium gray for body text */
+    --white-color: #ffffff;
+    --border-color: #dee2e6;
+    --dark-blue: #113; /* UPDATED: New color for dark blue */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* This a:hover applies to general links, not specifically header nav links anymore */
+a:hover {
+    color: #0056b3; /* Darker blue on hover */
+}
+
+ul {
+    list-style: none;
+}
+
+/* Header & Navigation */
+header {
+    background-color: lavender; /* Changed to white */
+    color: var(--dark-color); /* Changed text color to dark for contrast */
+    padding: 1rem 0;
+    position: sticky; /* Keeps header visible on scroll */
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Limits content width */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+nav .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--dark-color); /* Changed logo color for contrast */
+}
+
+nav ul {
+    display: flex;
+    gap: 28px; /* Applied from your .link styles */
+    height: 100%; /* Applied from your .link styles */
+    align-items: center; /* Applied from your .link styles */
+}
+
+/* Individual Navigation Links (Desktop Default State) */
+nav ul li a {
+    text-decoration: none;
+    color: black; /* Kept as per your design */
+    font-weight: bold;
+    font-size: 16px;
+
+    padding: 5px 0; /* Keeps original default padding, no change to dimensions */
+
+    position: relative; /* Essential for positioning the ::before pseudo-element */
+    z-index: 1; /* Ensures the link text stays above the pseudo-element background */
+
+    background-color: transparent; /* No direct background on <a> itself in default state */
+    border: none; /* Ensure no borders from previous attempts */
+    border-radius: 30px; /* Apply here for consistent shape and pseudo-element */
+
+    transition: color 0.2s ease; /* Only text color transitions directly on <a> */
+}
+
+/* Pseudo-element for the hover background effect */
+nav ul li a::before {
+    content: ''; /* Required for pseudo-elements */
+    position: absolute;
+
+    /* Center the pseudo-element and size it to match text + desired 8px padding */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0); /* Start scaled down and centered */
+
+    width: calc(100% + 16px); /* 100% of text width + (2 * 8px) horizontal desired padding */
+    height: calc(100% + 16px); /* 100% of text height + (2 * 8px) vertical desired padding */
+
+    background-color: black; /* Desired hover background color */
+    border-radius: 30px; /* Match the border-radius of the <a> tag */
+    z-index: -1; /* Place this background behind the link text */
+
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition for the effect */
+}
+
+/* Hover state for the <a> tag (only changes text color) */
+nav ul li a:hover {
+    color: lightgreen; /* Change text color on hover */
+}
+
+/* Hover state for the pseudo-element (makes background visible and expands it) */
+nav ul li a:hover::before {
+    opacity: 1; /* Make the background visible on hover */
+    transform: translate(-50%, -50%) scale(1); /* Expand to full size on hover */
+}
+
+/* Hero Section */
+.hero {
+    /* Removed background image/gradient as particles will provide the background */
+    background-color: var(--dark-blue); /* UPDATED: Now uses the new --dark-blue value */
+    color: var(--white-color);
+    text-align: center;
+    padding: 100px 20px;
+    min-height: 80vh; /* Make it take up most of the viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative; /* Needed for positioning particles-js inside */
+    overflow: hidden; /* Ensures particles stay within the hero section */
+}
+
+/* Particles.js Container */
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: var(--dark-blue); /* UPDATED: The main background color for the particles, now matching the hero */
+    z-index: 0; /* Place behind the content */
+}
+
+.hero-content {
+    position: relative; /* Ensures hero content is on top of particles */
+    z-index: 1; /* Place above the particles */
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn {
+    display: inline-block;
+    background-color: lightgreen;
+    color: black;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background-color: black;
+    color: lightgreen;
+    transform: translateY(-2px); /* Subtle lift effect */
+}
+
+/* Section Common Styles */
+section {
+    padding: 80px 20px;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Alternating background colors for sections for visual separation */
+section:nth-of-type(odd) {
+    background-color: var(--white-color);
+}
+section:nth-of-type(even) {
+    background-color: var(--secondary-color);
+}
+
+section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: var(--dark-color);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+/* Underline effect for section headings */
+section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+/* About Section */
+.about-content {
+    display: flex;
+    flex-direction: column; /* Stack elements on small screens */
+    align-items: center;
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.profile-pic {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%; /* Circular image */
+    object-fit: cover;
+    border: 5px solid var(--secondary-color);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    text-align: left;
+}
+
+/* Skills Section */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid columns */
+    gap: 30px;
+    text-align: left;
+}
+
+.skill-category {
+    background-color: var(--white-color);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.2s ease;
+}
+
+.skill-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,1);
+}
+
+.skill-category h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.skill-category ul li img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    flex-shrink: 0;
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+    filter: grayscale(10%);
+}
+.skill-category ul li:last-child {
+    border-bottom: none;
+}
+/* Projects Section */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background-color: var(--white-color);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,1);
+}
+
+.project-card h3 {
+    color: var(--dark-color);
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.project-card p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.project-link {
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; /* Space between text and icon */
+}
+
+.project-link i {
+    font-size: 0.9em;
+}
+
+/* Contact Section */
+.contact p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#contact-form {
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+    text-align: left;
+    background-color: var(--white-color);
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    color: var(--text-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Focus highlight */
+}
+
+.social-links {
+    margin-top: 30px;
+}
+
+.social-links a {
+    font-size: 2.5rem;
+    margin: 0 15px;
+    color: var(--dark-color);
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    text-align: center;
+    padding: 25px 20px;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav ul {
+        margin-top: 15px;
+        flex-wrap: wrap; /* Allows navigation items to wrap */
+        justify-content: center;
+        gap: 15px; /* Adjust spacing for wrapped items */
+    }
+
+    nav ul li {
+        margin: 0; /* Reset margin as gap is used on ul */
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+    }
+
+    section {
+        padding: 60px 15px; /* Reduce padding on smaller screens */
+    }
+
+    section h2 {
+        font-size: 2rem;
+    }
+
+    .about-content {
+        flex-direction: column; /* Stack image and text vertically */
+    }
+
+    .skills-grid,
+    .projects-grid {
+        grid-template-columns: 1fr; /* Single column layout for grids */
+    }
+}
+
+@media (max-width: 480px) {
+    nav .logo {
+        font-size: 1.5rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .skill-category,
+    .project-card,
+    #contact-form {
+        padding: 20px; /* Reduce padding on cards/forms */
+    }
+
+    .social-links a {
+        font-size: 2rem;
+        margin: 0 10px;
+    }
+}
